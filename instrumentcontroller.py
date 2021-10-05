@@ -195,7 +195,9 @@ class InstrumentController(QObject):
         src_i_max = secondary['src_i_max'] * MILLI
 
         sa_span = secondary['sa_span'] * MEGA
-        sa_rlev = secondary['sa_rlev']
+
+        sa_rlev = -10
+        sa_rlev_offs = 25
 
         gen_rf.send('*RST')
         sa.send('*RST')
@@ -233,17 +235,19 @@ class InstrumentController(QObject):
                         gen_rf.send(f'SOUR:POW {pow_rf_values[0]}dbm')
                         gen_rf.send(f'SOUR:FREQ {freq_rf_values[0]}Hz')
 
+                        sa.send(f'DISP:WIND:TRAC:Y:RLEV:OFFS 0')
                         sa.send(':CAL:AUTO ON')
-                        raise RuntimeError('calibration cancelled')
+                        raise RuntimeError('measurement cancelled')
 
                     gen_rf.send(f'SOUR:POW {rf_pow}dbm')
                     gen_rf.send(f'OUTP:STAT ON')
 
                     if not mock_enabled:
-                        time.sleep(0.5)
+                        time.sleep(0.4)
 
                     center_freq = rf_freq
                     sa.send(':CALC:MARK1:MODE POS')
+                    sa.send(f'DISP:WIND:TRAC:Y:RLEV:OFFS {sa_rlev_offs}')
                     sa.send(f':SENSe:FREQuency:CENTer {center_freq}Hz')
                     p = sa.send(f':CALCulate:MARKer1:X:CENTer {center_freq}Hz')
                     res.append(p)
@@ -255,6 +259,7 @@ class InstrumentController(QObject):
         gen_rf.send(f'SOUR:POW {pow_rf_values[0]}dbm')
         gen_rf.send(f'SOUR:FREQ {freq_rf_values[0]}Hz')
 
+        sa.send(f'DISP:WIND:TRAC:Y:RLEV 0')
         sa.send(':CAL:AUTO ON')
         return res
 
