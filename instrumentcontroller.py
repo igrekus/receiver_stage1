@@ -57,11 +57,11 @@ class InstrumentController(QObject):
             ],
             'rf_p_min': [
                 'Pвх.мин=',
-                {'start': -60.0, 'end': 20.0, 'step': 1.0, 'value': -30.0, 'suffix': ' дБм'}
+                {'start': -60.0, 'end': 20.0, 'step': 1.0, 'value': -60.0, 'suffix': ' дБм'}
             ],
             'rf_p_max': [
                 'Pвх.макс=',
-                {'start': -60.0, 'end': 20.0, 'step': 1.0, 'value': 0.0, 'suffix': ' дБм'}
+                {'start': -60.0, 'end': 20.0, 'step': 1.0, 'value': -40.0, 'suffix': ' дБм'}
             ],
             'rf_p_step': [
                 'Pвх.шаг=',
@@ -79,10 +79,10 @@ class InstrumentController(QObject):
                 'SA span',
                 {'start': 5.0, 'end': 500.0, 'step': 1.0, 'value': 100.0, 'suffix': ' МГц'}
             ],
-            'sa_rlev': [
-                'SA rlev',
-                {'start': 0.0, 'end': 50.0, 'step': 1.0, 'value': 10.0, 'suffix': ' дБ'}
-            ],
+            # 'sa_rlev': [
+            #     'SA rlev',
+            #     {'start': 0.0, 'end': 50.0, 'step': 1.0, 'value': 20.0, 'suffix': ' дБ'}
+            # ],
         })
         self.secondaryParams.load_from_config('params.ini')
 
