@@ -204,7 +204,7 @@ class InstrumentController(QObject):
         src.send('*RST')
 
         # setup
-        gen_rf.send(f':OUTP:MOD:STAT OFF')
+        # gen_rf.send(f':OUTP:MOD:STAT OFF')
 
         sa.send(':CAL:AUTO OFF')
         sa.send(':CALC:MARK1:MODE POS')
